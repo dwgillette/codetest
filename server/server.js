@@ -1,9 +1,17 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const PORT = 5000;
 
 app.use(bodyParser.json());
+
+mongoose.connect('mongodb+srv://user:opendrives@cluster0-rrsmt.mongodb.net/fact_stack', {useNewUrlParser: true});
+const connection = mongoose.connection;
+
+connection.once('open', function() {
+  console.log("MongoDB database connection established successfully");
+})
 
 //test
 app.get('/express_backend', (req, res) => {

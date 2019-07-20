@@ -10,7 +10,7 @@
     "eject": "react-scripts eject",
     "start": "node server/server.js",
     "server": "npx nodemon server/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run src\""
+    "dev": "concurrently \"npm run server\" \"npm run build\""
   },
   "repository": {
     "type": "git",
