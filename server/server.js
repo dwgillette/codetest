@@ -16,11 +16,13 @@ connection.once('open', function() {
   console.log("MongoDB database connection established successfully");
 })
 
+mongoose.set('useFindAndModify', false);
+
 app.get('/card_bank', (req, res) => {
   let param = req.query.name;
   PresetCard.findOne({name: param}, (err, cards) => {
       if (err) {
-          console.log(err);
+          res.send(err);
       } else {
           res.json(cards);
       }
@@ -30,7 +32,7 @@ app.get('/card_bank', (req, res) => {
 app.get('/active_user', (req, res) => {
   UserCard.find((err, cards) => {
       if (err) {
-          console.log(err);
+          res.send(err);
       } else {
           res.json(cards);
       }
@@ -46,6 +48,17 @@ app.post('/active_user', (req, res) => {
       .catch(err => {
           console.log("adding new card failed" + err);
       });
+});
+
+app.delete('/active_user', (req, res) => {
+  let param = req.query.id;
+  UserCard.findOneAndRemove({_id: param}, (err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("card deleted successfully" + res);
+    }
+  })
 });
 
 //test

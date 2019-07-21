@@ -23,9 +23,11 @@ class App extends React.Component {
       index: 0
     }
     this.connectToServer = this.connectToServer.bind(this);
+    this.retrieveCards = this.retrieveCards.bind(this);
     this.populateCollection = this.populateCollection.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
     this.createCard = this.createCard.bind(this);
+    this.deleteFromCollection = this.deleteFromCollection.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,10 @@ class App extends React.Component {
       }))
       .catch(err => console.log(err));
 
+    this.retrieveCards();
+  }
+
+  retrieveCards() {
     axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
       .then(res => {
           this.setState({
@@ -79,27 +85,7 @@ class App extends React.Component {
       },
       // callback function
       function() {
-        axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
-        .then(res => {
-            this.setState({
-              liveCard: res.data
-            });
-            console.log(res.data);
-        })
-        .catch(function (error){
-            console.log(error);
-        })
-        
-        axios.get('/active_user')
-        .then(res => {
-            this.setState({
-              collection: res.data
-            });
-            console.log(res.data);
-        })
-        .catch(function (error){
-            console.log(error);
-        })
+        this.retrieveCards();
       })
     }
   }
@@ -120,9 +106,14 @@ class App extends React.Component {
       })
   }
 
+  deleteFromCollection(id) {
+    axios.delete('/active_user', { params: { id: id } });
+    this.retrieveCards();
+  }
+
   populateCollection() {
     return this.state.collection.map((currentCard, i) => {
-      return <CardHeader card={currentCard} key={i} />;
+      return <CardHeader card={currentCard} key={i} onClick={this.deleteFromCollection}/>;
     })
   }
 

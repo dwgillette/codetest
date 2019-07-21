@@ -4,7 +4,7 @@ const CardHeader = (props) => (
   <div className="cardHeader">
     <h4>{props.card.name}</h4>
     <div className="deleteContainer">
-      <div className="icon reject" id="delete" onClick={() => props.onClick("reject")}>&#10005;</div>
+      <div className="icon reject" id="delete" onClick={() => props.onClick(props.card._id)}>&#10005;</div>
     </div>
   </div>
 )
