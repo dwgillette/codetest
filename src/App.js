@@ -3,7 +3,6 @@ import axios from 'axios';
 import './App.css';
 import Card from './components/card';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);

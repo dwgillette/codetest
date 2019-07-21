@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const PORT = 5000;
 
 const PresetCard = require('./presetCards.model');
+const UserCard = require('./userCards.model');
 
 app.use(bodyParser.json());
 
@@ -23,6 +24,27 @@ app.get('/card_bank', (req, res) => {
           res.json(cards);
       }
   });
+});
+
+app.get('/active_user', (req, res) => {
+  UserCard.find(function(err, cards) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.json(cards);
+      }
+  });
+});
+
+app.post('/active_user', (req, res) => {
+  let card = new UserCard(req.body);
+  card.save()
+      .then(res => {
+          console.log("card added successfully" + res)
+      })
+      .catch(err => {
+          console.log("adding new card failed" + err);
+      });
 });
 
 //test
