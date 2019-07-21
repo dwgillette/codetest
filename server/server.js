@@ -18,7 +18,7 @@ connection.once('open', function() {
 
 app.get('/card_bank', (req, res) => {
   let param = req.query.name;
-  PresetCard.find({name: param}, (err, cards) => {
+  PresetCard.findOne({name: param}, (err, cards) => {
       if (err) {
           console.log(err);
       } else {

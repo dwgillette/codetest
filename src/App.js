@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       expressStatus: null,
-      cards: [],
+      liveCard: {},
       presetQueue: [
         "Runaway Greenhouse Effect",
         "Gamma Ray Bursts",
@@ -21,8 +21,9 @@ class App extends React.Component {
       index: 0
     }
     this.connectToServer = this.connectToServer.bind(this);
-    this.cardList = this.cardList.bind(this);
+    // this.cardList = this.cardList.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
+    this.createCard = this.createCard.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ class App extends React.Component {
     axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
       .then(res => {
           this.setState({
-            cards: res.data
+            liveCard: res.data
           });
           console.log(res.data);
       })
@@ -55,28 +56,16 @@ class App extends React.Component {
     return body;
   };
 
-  createPresetQueue() {
-    let queue = [];
-    this.state.cards.map((currentCard, i) => {
-      return queue.push({card: currentCard, key: i});
-    })
-    console.log(queue);
-    this.setState({
-      presetQueue: [...queue]
-    })
-  }
-
-  cardList() {
-    console.log(this.state.cards);
-    return this.state.cards.map((currentCard, i) => {
+  /* cardList() {
+    return this.state.liveCard.map((currentCard, i) => {
       return <Card card={currentCard} key={i} onClick={this.handleSwipe}/>;
     })
-  }
+  } */
 
   handleSwipe(param) {
-    /*if (param === "accept") {
+    if (param === "accept") {
       this.createCard();
-    }*/
+    }
 
     this.setState({
       index: this.state.index + 1
@@ -86,7 +75,7 @@ class App extends React.Component {
       axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
       .then(res => {
           this.setState({
-            cards: res.data
+            liveCard: res.data
           });
           console.log(res.data);
       })
@@ -99,10 +88,10 @@ class App extends React.Component {
   createCard() {
     // testing card creation
     const newCard = {
-      name: "test",
-      desc: "description",
-      fact: "fun fact",
-      picture: "url"
+      name: this.state.liveCard.name,
+      desc: this.state.liveCard.desc,
+      fact: this.state.liveCard.fact,
+      picture: this.state.liveCard.picture
     }
 
     axios.post('/active_user', newCard)
@@ -119,7 +108,7 @@ class App extends React.Component {
           <h1>React is working</h1>
           <h1>{ this.state.expressStatus }</h1>
           <div>
-            { this.cardList() }
+            <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
           </div>
         </header> 
       </div>
