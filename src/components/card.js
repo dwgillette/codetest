@@ -13,6 +13,10 @@ const Card = props => (
       <br></br>
       {props.card.fact}
     </p>
+    <div className="cardButtonsContainer">
+      <div>&#10006;</div>
+      <div>&#10004;</div>
+    </div>
   </div>
 )
 

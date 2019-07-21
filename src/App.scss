@@ -37,3 +37,12 @@
   max-width: 200px;
   height: auto;
 }
+
+.cardButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 100px;
+  width: 100%;
+  font-size: 80px;
+}
