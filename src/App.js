@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './App.scss';
 import Card from './components/card';
+import CardHeader from './components/cardHeader';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class App extends React.Component {
     this.state = {
       expressStatus: null,
       liveCard: {},
+      collection: [],
       presetQueue: [
         "Runaway Greenhouse Effect",
         "Gamma Ray Bursts",
@@ -21,7 +23,7 @@ class App extends React.Component {
       index: 0
     }
     this.connectToServer = this.connectToServer.bind(this);
-    // this.cardList = this.cardList.bind(this);
+    this.populateCollection = this.populateCollection.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
     this.createCard = this.createCard.bind(this);
   }
@@ -44,6 +46,17 @@ class App extends React.Component {
       .catch(function (error){
           console.log(error);
       })
+
+      axios.get('/active_user')
+      .then(res => {
+          this.setState({
+            collection: res.data
+          });
+          console.log(res.data);
+      })
+      .catch(function (error){
+          console.log(error);
+      })
   }
 
   connectToServer = async () => {
@@ -55,12 +68,6 @@ class App extends React.Component {
     }
     return body;
   };
-
-  /* cardList() {
-    return this.state.liveCard.map((currentCard, i) => {
-      return <Card card={currentCard} key={i} onClick={this.handleSwipe}/>;
-    })
-  } */
 
   handleSwipe(param) {
     if (param === "accept") {
@@ -76,6 +83,17 @@ class App extends React.Component {
         .then(res => {
             this.setState({
               liveCard: res.data
+            });
+            console.log(res.data);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+        
+        axios.get('/active_user')
+        .then(res => {
+            this.setState({
+              collection: res.data
             });
             console.log(res.data);
         })
@@ -102,6 +120,12 @@ class App extends React.Component {
       })
   }
 
+  populateCollection() {
+    return this.state.collection.map((currentCard, i) => {
+      return <CardHeader card={currentCard} key={i} />;
+    })
+  }
+
   render() {
     return (
       <div className="pageWrapper">
@@ -113,7 +137,7 @@ class App extends React.Component {
             <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
           </div>
           <div className="collectionPanel">
-
+            { this.populateCollection() }
           </div>
         </body> 
       </div>
