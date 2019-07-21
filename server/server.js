@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT = 5000;
 
+const PresetCard = require('./presetCards.model');
+
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb+srv://user:opendrives@cluster0-rrsmt.mongodb.net/fact_stack', {useNewUrlParser: true});
@@ -12,6 +14,16 @@ const connection = mongoose.connection;
 connection.once('open', function() {
   console.log("MongoDB database connection established successfully");
 })
+
+app.get('/card_bank', (req, res) => {
+  PresetCard.find(function(err, cards) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.json(cards);
+      }
+  });
+});
 
 //test
 app.get('/express_backend', (req, res) => {

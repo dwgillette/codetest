@@ -1,14 +1,18 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
+import Card from './components/card';
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expressStatus: null
+      expressStatus: null,
+      cards: []
     }
     this.connectToServer = this.connectToServer.bind(this);
+    this.cardList = this.cardList.bind(this);
   }
 
   componentDidMount() {
@@ -18,6 +22,17 @@ class App extends React.Component {
         expressStatus: res.express 
       }))
       .catch(err => console.log(err));
+
+    axios.get('/card_bank')
+      .then(res => {
+          this.setState({
+            cards: res.data
+          });
+          console.log(res.data);
+      })
+      .catch(function (error){
+          console.log(error);
+      })
   }
 
   connectToServer = async () => {
@@ -30,12 +45,21 @@ class App extends React.Component {
     return body;
   };
 
+  cardList() {
+    return this.state.cards.map((currentCard, i) => {
+      return <Card card={currentCard} key={i} />;
+    })
+  }
+
   render() {
     return (
       <div>
         <header className="header">
           <h1>React is working</h1>
           <h1>{ this.state.expressStatus }</h1>
+          <div>
+            { this.cardList() }
+          </div>
         </header> 
       </div>
     );
