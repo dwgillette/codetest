@@ -6,7 +6,6 @@ const Card = (props) => (
       <div className="imgContainer">
         <img className="img" src={props.card.picture} alt={props.card.name}></img>
       </div>
-      {/*<div style={{ 'background-image': 'url(' + props.card.picture + ');'}}></div>*/}
       <h2>{props.card.name}</h2>
       <p>{props.card.desc}</p>
       <p>

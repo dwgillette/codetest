@@ -17,7 +17,8 @@ connection.once('open', function() {
 })
 
 app.get('/card_bank', (req, res) => {
-  PresetCard.find(function(err, cards) {
+  let param = req.query.name;
+  PresetCard.find({name: param}, (err, cards) => {
       if (err) {
           console.log(err);
       } else {
@@ -27,7 +28,7 @@ app.get('/card_bank', (req, res) => {
 });
 
 app.get('/active_user', (req, res) => {
-  UserCard.find(function(err, cards) {
+  UserCard.find((err, cards) => {
       if (err) {
           console.log(err);
       } else {

@@ -8,7 +8,17 @@ class App extends React.Component {
     super(props);
     this.state = {
       expressStatus: null,
-      cards: []
+      cards: [],
+      presetQueue: [
+        "Runaway Greenhouse Effect",
+        "Gamma Ray Bursts",
+        "Heat Death of the Universe",
+        "Biotechnology",
+        "Physics Experiments",
+        "Artificial Intelligence",
+        "Extraterrestrial Life"
+      ],
+      index: 0
     }
     this.connectToServer = this.connectToServer.bind(this);
     this.cardList = this.cardList.bind(this);
@@ -23,7 +33,7 @@ class App extends React.Component {
       }))
       .catch(err => console.log(err));
 
-    axios.get('/card_bank')
+    axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
       .then(res => {
           this.setState({
             cards: res.data
@@ -45,16 +55,45 @@ class App extends React.Component {
     return body;
   };
 
+  createPresetQueue() {
+    let queue = [];
+    this.state.cards.map((currentCard, i) => {
+      return queue.push({card: currentCard, key: i});
+    })
+    console.log(queue);
+    this.setState({
+      presetQueue: [...queue]
+    })
+  }
+
   cardList() {
+    console.log(this.state.cards);
     return this.state.cards.map((currentCard, i) => {
       return <Card card={currentCard} key={i} onClick={this.handleSwipe}/>;
     })
   }
 
   handleSwipe(param) {
-    if (param === "accept") {
+    /*if (param === "accept") {
       this.createCard();
-    } 
+    }*/
+
+    this.setState({
+      index: this.state.index + 1
+    },
+    // callback function
+    function() {
+      axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
+      .then(res => {
+          this.setState({
+            cards: res.data
+          });
+          console.log(res.data);
+      })
+      .catch(function (error){
+          console.log(error);
+      })
+    })
   }
 
   createCard() {
