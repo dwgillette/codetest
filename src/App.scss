@@ -1,5 +1,9 @@
 $black: #282c34;
+$red: #c03d3d;
+$green: #1bb90f;
 
+
+// Page Layout //
 .pageWrapper {
   min-height: 100vh;
   background-color: $black;
@@ -8,8 +12,8 @@ $black: #282c34;
 .header {
   position: fixed;
   width: 100%;
-  height: 50px;
-  margin-top: 10px;
+  height: 10vh;
+  margin-top: 0px;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -17,6 +21,7 @@ $black: #282c34;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: $black;
 }
 
 .body {
@@ -32,19 +37,24 @@ $black: #282c34;
 
 .cardWindow {
   width: 60vw;
+  height: 90vh;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-shadow: inset 0 0 10px #000000;
 }
 
 .collectionPanel {
   margin-top: 10vh;
   height: 90vh;
   width: 40vw;
-  background-color: white;
+  overflow-y: auto;
+  background-color: $black;
 }
 
+// Active Card //
 .cardContainer {
   width: 400px;
   min-height: 600px;
@@ -109,29 +119,64 @@ $black: #282c34;
 #reject {
   transition: all 0.2s ease-out;
   &:hover {
-    background-color: #E0100E;
+    background-color: $red;
   }
 }
 
 #check {
   transition: all 0.2s ease-out;
   &:hover {
-    background-color: #1bb90f;
+    background-color: $green;
   }
 }
 
 .reject {
-  color: #E0100E;
-  border: 8px solid #E0100E;
+  color: $red;
+  border: 8px solid $red;
 }
 
 .check {
-  color: #1bb90f;
-  border: 8px solid #1bb90f;
+  color: $green;
+  border: 8px solid $green;
 }
 
+// User Card Collection //
 .cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: $black;
-  width: 100%;
-  height: 100px;
+  height: 80px;
+  //width: 40vw;
+  padding: 0 15px 0 10px;
+  margin-bottom: -2px;
+  border: solid $black;
+  background-color: white;
+  transition: all 0.3s ease;
+  &:hover {
+    color: #fd6262;
+    cursor: pointer;
+  }
+}
+
+.deleteContainer {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#delete {
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  transition: all 0.2s ease-out;
+  border: 2px solid grey;
+  color: grey;
+  transition: all 0.2s ease;
+  &:hover {
+    color: $red;
+    background-color: white;
+    border: 4px solid $red;
+  }
 }
