@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = props => (
+const Card = (props) => (
   <div className="cardContainer">
     <div className="cardInfo">
       <div className="imgContainer">
@@ -16,8 +16,8 @@ const Card = props => (
       </p>
     </div>
     <div className="cardButtonsContainer">
-      <div className="icon reject">&#10006;</div>
-      <div className="icon check">&#10004;</div>
+      <div className="icon reject" onClick={() => props.onClick("reject")}>&#10006;</div>
+      <div className="icon check" onClick={() => props.onClick("accept")}>&#10004;</div>
     </div>
   </div>
 )

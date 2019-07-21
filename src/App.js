@@ -12,6 +12,7 @@ class App extends React.Component {
     }
     this.connectToServer = this.connectToServer.bind(this);
     this.cardList = this.cardList.bind(this);
+    this.handleSwipe = this.handleSwipe.bind(this);
   }
 
   componentDidMount() {
@@ -46,8 +47,30 @@ class App extends React.Component {
 
   cardList() {
     return this.state.cards.map((currentCard, i) => {
-      return <Card card={currentCard} key={i} />;
+      return <Card card={currentCard} key={i} onClick={this.handleSwipe}/>;
     })
+  }
+
+  handleSwipe(param) {
+    if (param === "accept") {
+      this.createCard();
+    } 
+  }
+
+  createCard() {
+    // testing card creation
+    const newCard = {
+      name: "test",
+      desc: "description",
+      fact: "fun fact",
+      picture: "url"
+    }
+
+    axios.post('/active_user', newCard)
+      .then(res => console.log(res.data))
+      .catch(err => {
+        console.error(err);
+      })
   }
 
   render() {
