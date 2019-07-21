@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import './App.scss';
-import 'font-awesome/css/font-awesome.min.css';
 import Card from './components/card';
 
 class App extends React.Component {
