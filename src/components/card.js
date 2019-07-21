@@ -15,8 +15,8 @@ const Card = (props) => (
       </p>
     </div>
     <div className="cardButtonsContainer">
-      <div className="icon reject" onClick={() => props.onClick("reject")}>&#10006;</div>
-      <div className="icon check" onClick={() => props.onClick("accept")}>&#10004;</div>
+      <div className="icon reject" id="reject" onClick={() => props.onClick("reject")}>&#10006;</div>
+      <div className="icon check" id="check" onClick={() => props.onClick("accept")}>&#10004;</div>
     </div>
   </div>
 )

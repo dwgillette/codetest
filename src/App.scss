@@ -11,7 +11,7 @@
 
 .cardContainer {
   width: 400px;
-  min-height: 400px;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,10 +63,24 @@
   height: 80px;
   font-size: 60px;
   border-radius: 100px;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease-in;
   &:hover {
-    transform: scale(1.05);
+    color: white;
     cursor: pointer;
+  }
+}
+
+#reject {
+  transition: all 0.2s ease-out;
+  &:hover {
+    background-color: #E0100E;
+  }
+}
+
+#check {
+  transition: all 0.2s ease-out;
+  &:hover {
+    background-color: #1bb90f;
   }
 }
 

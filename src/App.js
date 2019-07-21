@@ -105,7 +105,6 @@ class App extends React.Component {
     return (
       <div>
         <header className="header">
-          <h1>React is working</h1>
           <h1>{ this.state.expressStatus }</h1>
           <div>
             <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
