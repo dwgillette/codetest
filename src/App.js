@@ -66,23 +66,24 @@ class App extends React.Component {
     if (param === "accept") {
       this.createCard();
     }
-
-    this.setState({
-      index: this.state.index + 1
-    },
-    // callback function
-    function() {
-      axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
-      .then(res => {
-          this.setState({
-            liveCard: res.data
-          });
-          console.log(res.data);
+    if (this.state.index < this.state.presetQueue.length - 1) {
+      this.setState({
+        index: this.state.index + 1
+      },
+      // callback function
+      function() {
+        axios.get('/card_bank', { params: { name: this.state.presetQueue[this.state.index] } })
+        .then(res => {
+            this.setState({
+              liveCard: res.data
+            });
+            console.log(res.data);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
       })
-      .catch(function (error){
-          console.log(error);
-      })
-    })
+    }
   }
 
   createCard() {
@@ -103,13 +104,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="pageWrapper">
         <header className="header">
           <h1>{ this.state.expressStatus }</h1>
-          <div>
+        </header>
+        <body className="body">
+          <div className="cardWindow">
             <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
           </div>
-        </header> 
+          <div className="collectionPanel">
+
+          </div>
+        </body> 
       </div>
     );
   }
