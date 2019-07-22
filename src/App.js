@@ -26,6 +26,7 @@ class App extends React.Component {
     this.retrieveCards = this.retrieveCards.bind(this);
     this.populateCollection = this.populateCollection.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
+    this.increment = this.increment.bind(this);
     this.createCard = this.createCard.bind(this);
     this.deleteFromCollection = this.deleteFromCollection.bind(this);
   }
@@ -37,6 +38,9 @@ class App extends React.Component {
         expressStatus: res.express 
       }))
       .catch(err => console.log(err));
+    
+    // simulates session by new user
+    axios.delete('/active_user/new_session', {});
 
     this.retrieveCards();
   }
@@ -46,19 +50,23 @@ class App extends React.Component {
       .then(res => {
           this.setState({
             liveCard: res.data
+          },
+          function() {
+            console.log(res.data);
           });
-          console.log(res.data);
       })
       .catch(function (error){
           console.log(error);
       })
 
-      axios.get('/active_user')
+    axios.get('/active_user')
       .then(res => {
           this.setState({
             collection: res.data
+          },
+          function() {
+            console.log(res.data);
           });
-          console.log(res.data);
       })
       .catch(function (error){
           console.log(error);
@@ -75,18 +83,24 @@ class App extends React.Component {
     return body;
   };
 
-  handleSwipe(param) {
-    if (param === "accept") {
-      this.createCard();
-    }
+  increment() {
     if (this.state.index < this.state.presetQueue.length - 1) {
       this.setState({
         index: this.state.index + 1
       },
       // callback function
       function() {
-        this.retrieveCards();
+        setTimeout(() => {this.retrieveCards()}, 500);
       })
+    }
+  }
+
+  handleSwipe(param) {
+    if (param === "accept") {
+      this.createCard();
+      this.increment();
+    } else {
+      this.increment();
     }
   }
 
@@ -100,15 +114,17 @@ class App extends React.Component {
     }
 
     axios.post('/active_user', newCard)
-      .then(res => console.log(res.data))
+      .then(res =>  console.log(res.data))
       .catch(err => {
         console.error(err);
-      })
+      });
   }
 
   deleteFromCollection(id) {
-    axios.delete('/active_user', { params: { id: id } });
-    this.retrieveCards();
+    if (id !== undefined) {
+      axios.delete('/active_user', { params: { id: id } })
+        .then(setTimeout(() => {this.retrieveCards()}, 500));
+    }
   }
 
   populateCollection() {
