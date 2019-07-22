@@ -43,7 +43,7 @@ app.post('/active_user', (req, res) => {
   let card = new UserCard(req.body);
   card.save()
       .then(res => {
-          console.log("card added successfully" + res)
+          console.log("card added successfully: " + res.name)
       })
       .catch(err => {
           console.log("adding new card failed" + err);
@@ -52,12 +52,18 @@ app.post('/active_user', (req, res) => {
 
 app.delete('/active_user', (req, res) => {
   let param = req.query.id;
-  UserCard.findOneAndRemove({_id: param}, (err) => {
+  UserCard.findOneAndDelete({_id: param}, (err, res) => {
     if (err) {
       res.send(err);
     } else {
-      console.log("card deleted successfully" + res);
+      console.log("card deleted successfully: " + res.name);
     }
+  })
+});
+
+app.delete('/active_user/new_session', (req, res) => {
+  UserCard.deleteMany(req.body, (err) => {
+    if (err) return handleError(err);
   })
 });
 
