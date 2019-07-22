@@ -1,6 +1,7 @@
 $black: #282c34;
 $red: #c03d3d;
 $green: #1bb90f;
+$pink: #fd6262;
 
 
 // Page Layout //
@@ -50,7 +51,6 @@ $green: #1bb90f;
   margin-top: 10vh;
   height: 90vh;
   width: 40vw;
-  overflow-y: auto;
   background-color: $black;
 }
 
@@ -140,21 +140,69 @@ $green: #1bb90f;
   border: 8px solid $green;
 }
 
-// User Card Collection //
+// Card Collection //
+.collectionContainer {
+  width: 100%;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  background-color: $black;
+}
+
+.collectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 85px;
+  background-color: white;
+  border: solid $black;
+  border-radius: 4px;
+  margin-bottom: -2px;
+  padding: 0 15px 0 10px;
+  font-size: 36px;
+  color: $pink;
+}
+
+.createContainer {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createButton {
+  width: 48px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 8px;
+  color: $pink;
+  font-size: 50px;
+  border: 3px solid $pink;
+  border-radius: 8px;
+  transition: all 0.2s ease-out;
+  &:hover {
+    background-color: $pink;
+    color: white;
+    cursor: pointer;
+  }
+}
+
 .cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: $black;
-  height: 80px;
+  height: 65px;
   //width: 40vw;
-  padding: 0 15px 0 10px;
+  padding: 0 20px 0 10px;
   margin-bottom: -2px;
   border: solid $black;
+  border-radius: 4px;
   background-color: white;
   transition: all 0.3s ease;
   &:hover {
-    color: #fd6262;
+    color: $pink;
     cursor: pointer;
   }
 }

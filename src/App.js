@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.scss';
 import Card from './components/card';
 import CardHeader from './components/cardHeader';
+import CollectionHeader from './components/collectionHeader';
 
 class App extends React.Component {
   constructor(props) {
@@ -147,7 +148,10 @@ class App extends React.Component {
             <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
           </div>
           <div className="collectionPanel">
+            <CollectionHeader />
+            <div className="collectionContainer">
             { this.populateCollection() }
+            </div>
           </div>
         </body> 
       </div>
