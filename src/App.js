@@ -18,7 +18,8 @@ class App extends React.Component {
         "Biotechnology",
         "Physics Experiments",
         "Artificial Intelligence",
-        "Extraterrestrial Life"
+        "Extraterrestrial Life",
+        "Add one of your own!"
       ],
       index: 0
     }
@@ -92,11 +93,13 @@ class App extends React.Component {
       function() {
         setTimeout(() => {this.retrieveCards()}, 500);
       })
+    } else {
+      this.retrieveCards();
     }
   }
 
   handleSwipe(param) {
-    if (param === "accept") {
+    if (param === "accept" && this.state.index < this.state.presetQueue.length - 1) {
       this.createCard();
       this.increment();
     } else {
