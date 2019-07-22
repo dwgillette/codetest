@@ -10,7 +10,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       expressStatus: null,
-      liveCard: {},
+      liveCard: {
+        name: "Loading..",
+        desc: "Loading..",
+        fact: "Loading..",
+        picture: "https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
+      },
       collection: [],
       presetQueue: [
         "Runaway Greenhouse Effect",
