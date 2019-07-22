@@ -48,6 +48,7 @@ app.post('/active_user', (req, res) => {
       .catch(err => {
           console.log("adding new card failed" + err);
       });
+  res.end("OK");
 });
 
 app.delete('/active_user', (req, res) => {
@@ -59,12 +60,14 @@ app.delete('/active_user', (req, res) => {
       console.log("card deleted successfully: " + res.name);
     }
   })
+  res.end("OK");
 });
 
 app.delete('/active_user/new_session', (req, res) => {
   UserCard.deleteMany(req.body, (err) => {
     if (err) return handleError(err);
   })
+  res.end("OK");
 });
 
 //test
