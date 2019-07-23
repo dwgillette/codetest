@@ -15,7 +15,8 @@ const CardCreator = (props) => (
               type="text" 
               className="formControl"
               placeholder="Name your existential fear"
-              required />
+              required
+              onChange={(e) => props.onChange("name", e)} />
           </div>
           <div className="formGroup">
             <label>Description: </label>
@@ -23,7 +24,8 @@ const CardCreator = (props) => (
               type="text" 
               className="formControl"
               placeholder="Why is it so scary?"
-              required />
+              required
+              onChange={(e) => props.onChange("desc", e)} />
           </div>
           <div className="formGroup">
             <label>Fun fact: </label>
@@ -31,7 +33,8 @@ const CardCreator = (props) => (
               type="text" 
               className="formControl"
               placeholder="Maybe a fun fact will lighten the mood?" 
-              required />
+              required
+              onChange={(e) => props.onChange("fact", e)} />
           </div>
           <div className="formGroup">
             <label>Picture: </label>
@@ -39,7 +42,8 @@ const CardCreator = (props) => (
               type="text" 
               className="formControl"
               placeholder="Paste an image link for pizzazz!" 
-              required />
+              required
+              onChange={(e) => props.onChange("picture", e)} />
           </div>
           <div className="submitContainer">
             <input type="submit" className="submit" value="Create" /> 

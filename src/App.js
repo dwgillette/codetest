@@ -31,7 +31,11 @@ class App extends React.Component {
       index: 0,
       creatorStyle: {
         display: "none"
-      }
+      },
+      createName: "",
+      createDesc: "",
+      createFact: "",
+      createPicture: "https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
     }
     this.connectToServer = this.connectToServer.bind(this);
     this.retrieveCards = this.retrieveCards.bind(this);
@@ -41,6 +45,7 @@ class App extends React.Component {
     this.createCard = this.createCard.bind(this);
     this.deleteFromCollection = this.deleteFromCollection.bind(this);
     this.toggleCardCreator = this.toggleCardCreator.bind(this);
+    this.onChangeCreator = this.onChangeCreator.bind(this);
   }
 
   componentDidMount() {
@@ -161,10 +166,34 @@ class App extends React.Component {
     }
   }
 
+  onChangeCreator(param, e) {
+    if (param === "name") {
+      console.log(e.target.value);
+      this.setState({
+        createName: e.target.value
+      });
+    } else if (param === "desc") {
+      this.setState({
+        createDesc: e.target.value
+      });
+    } else if (param === "fact") {
+      this.setState({
+        createFact: e.target.value
+      });
+    } else if (param === "picture") {
+      this.setState({
+        createPicture: e.target.value
+      });
+    }
+  }
+
   render() {
     return (
       <div className="pageWrapper">
-        <CardCreator style={this.state.creatorStyle} onClick={this.toggleCardCreator}/>
+        <CardCreator 
+          style={this.state.creatorStyle} 
+          onClick={this.toggleCardCreator}
+          onChange={this.onChangeCreator} />
         <header className="header">
           <h1>{ this.state.expressStatus }</h1>
         </header>
