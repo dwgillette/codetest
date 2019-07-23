@@ -1,10 +1,10 @@
 import React from 'react';
 
 const CollectionHeader = (props) => (
-  <div className="collectionHeader">
+  <div className="collection-header">
     <h4>Collection</h4>
-    <div className="createContainer">
-      <div className="createButton" onClick={() => props.onClick("show")}>+</div>
+    <div className="create-container">
+      <div className="create-button" onClick={() => props.onClick("show")}>+</div>
     </div>
   </div>
 )

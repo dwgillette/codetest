@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import './App.scss';
-import Card from './components/card';
-import CardHeader from './components/cardHeader';
-import CollectionHeader from './components/collectionHeader';
-import CardCreator from './components/cardCreator';
+import Card from './components/Card';
+import CardHeader from './components/CardHeader';
+import CollectionHeader from './components/CollectionHeader';
+import CardCreator from './components/CardCreator';
 
 class App extends React.Component {
   constructor(props) {
@@ -277,7 +277,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="pageWrapper">
+      <div className="page-wrapper">
         <CardCreator 
           style={this.state.creatorStyle}
           name={this.state.createName}
@@ -291,12 +291,12 @@ class App extends React.Component {
           <h1>{ this.state.expressStatus }</h1>
         </header>
         <body className="body">
-          <div className="cardWindow">
+          <div className="card-window">
             <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
           </div>
-          <div className="collectionPanel">
+          <div className="collection-panel">
             <CollectionHeader onClick={this.toggleCardCreator} />
-            <div className="collectionContainer">
+            <div className="collection-container">
             { this.populateCollection() }
             </div>
           </div>
