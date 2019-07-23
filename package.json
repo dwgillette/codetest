@@ -11,7 +11,7 @@
     "start": "node server/server.js",
     "server": "npx nodemon server/server.js",
     "dev": "concurrently \"npm run server\" \"npm run src\"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "npm run start && npm run build"
   },
   "repository": {
     "type": "git",
