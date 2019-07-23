@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import './App.scss';
-import Card from './components/Card';
-import CardHeader from './components/CardHeader';
-import CollectionHeader from './components/CollectionHeader';
-import CardCreator from './components/CardCreator';
+import Card from './components/card';
+import CardHeader from './components/cardHeader';
+import CollectionHeader from './components/collectionHeader';
+import CardCreator from './components/cardCreator';
 
 class App extends React.Component {
   constructor(props) {
