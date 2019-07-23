@@ -29,6 +29,7 @@ class App extends React.Component {
         "Add one of your own!"
       ],
       index: 0,
+      liveCardIsFromCollection: false,
       endList: false,
       creatorStyle: {
         display: "none"
@@ -239,11 +240,19 @@ class App extends React.Component {
       })
       .catch(function(error) {
           console.log(error);
-      })
-
-    this.setState({
-      index: this.state.index - 1
-    });
+      });
+    
+    if (this.state.liveCardIsFromCollection === false) {
+      this.setState({
+        index: (this.state.endList === false) ?
+        this.state.index - 1 :
+        this.state.presetQueue.length - 1
+      }, () => {
+        this.setState({
+          liveCardIsFromCollection: true
+        })
+      });
+    }
   }
 
   render() {
