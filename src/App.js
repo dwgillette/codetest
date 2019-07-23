@@ -219,6 +219,12 @@ class App extends React.Component {
     
     setTimeout(() => {this.retrieveCards()}, 500);
     this.toggleCardCreator();
+
+    if (this.state.endList === true) {
+      this.setState({
+        index: this.state.presetQueue.length - 1
+      })
+    }
   }
 
   showCard(name) {
