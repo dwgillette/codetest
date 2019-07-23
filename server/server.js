@@ -40,8 +40,8 @@ app.get('/active_user', (req, res) => {
 });
 
 app.get('/active_user/find_one', (req, res) => {
-  let id = req.query.id;
-  UserCard.findOne({_id: id}, (err, cards) => {
+  let name = req.query.name;
+  UserCard.findOne({name: name}, (err, cards) => {
       if (err) {
           res.send(err);
       } else {

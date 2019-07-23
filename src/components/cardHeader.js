@@ -2,7 +2,7 @@ import React from 'react';
 
 const CardHeader = (props) => (
   <div className="cardHeader">
-    <div className="cardSelector" onClick={() => props.showCard(props.card._id)}>
+    <div className="cardSelector" onClick={() => props.showCard(props.card.name)}>
       <h4>{props.card.name}</h4>
     </div>
     <div className="deleteContainer">

@@ -221,8 +221,8 @@ class App extends React.Component {
     this.toggleCardCreator();
   }
 
-  showCard(id) {
-    axios.get('/active_user/find_one', { params: { id: id } })
+  showCard(name) {
+    axios.get('/active_user/find_one', { params: { name: name } })
       .then(res => {
           this.setState({
             liveCard: res.data
