@@ -51,6 +51,7 @@ class App extends React.Component {
     this.createCard = this.createCard.bind(this);
     this.showCard = this.showCard.bind(this);
     this.returnCardToCollection = this.returnCardToCollection.bind(this);
+    this.axiosPost = this.axiosPost.bind(this);
   }
 
   componentDidMount() {
@@ -124,6 +125,14 @@ class App extends React.Component {
     }
   }
 
+  axiosPost(param) {
+    axios.post('/active_user', param)
+      .then(res =>  console.log(res.data))
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   handleSwipe(param) {
     if (param === "accept") {
       if (this.state.liveCardIsFromCollection === false) {
@@ -149,7 +158,6 @@ class App extends React.Component {
     }
   }
     
-
   addToCollection() {
     const newCard = {
       name: this.state.liveCard.name,
@@ -158,11 +166,7 @@ class App extends React.Component {
       picture: this.state.liveCard.picture
     }
 
-    axios.post('/active_user', newCard)
-      .then(res =>  console.log(res.data))
-      .catch(err => {
-        console.error(err);
-      });
+    this.axiosPost(newCard);
   }
 
   deleteFromCollection(id) {
@@ -225,11 +229,7 @@ class App extends React.Component {
       picture: this.state.createPicture
     }
 
-    axios.post('/active_user', newCard)
-      .then(res =>  console.log(res.data))
-      .catch(err => {
-        console.error(err);
-      });
+    this.axiosPost(newCard);
     
     setTimeout(() => {this.retrieveCards()}, 500);
     this.toggleCardCreator();
@@ -255,18 +255,6 @@ class App extends React.Component {
       .catch(function(error) {
           console.log(error);
       });
-    
-   /* if (this.state.liveCardIsFromCollection === false) {
-      this.setState({
-        index: (this.state.endList === false) ?
-        this.state.index - 1 :
-        this.state.presetQueue.length - 1
-      }, () => {
-        this.setState({
-          liveCardIsFromCollection: true
-        })
-      });
-    }*/
   }
 
   returnCardToCollection() {
@@ -289,6 +277,7 @@ class App extends React.Component {
           onSubmit={this.createCard} />
         <header className="header">
           <h1>{ this.state.expressStatus }</h1>
+          <h6>..discover, create, and collect existential crises on the path to enlightenment.</h6>
         </header>
         <body className="body">
           <div className="card-window">

@@ -85,7 +85,7 @@ app.delete('/active_user/new_session', (req, res) => {
 
 //test
 app.get('/express_backend', (req, res) => {
-  res.send({ express:"The express backend is connected to React. Woo!" });
+  res.send({ express:"Crisis Collector" });
 });
 
 // Serve static files from the React app
