@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Code test for OpenDrives",
   "main": "index.js",
+  "engines": {
+    "node": "10.15.3"
+  },
   "scripts": {
     "src": "react-scripts start",
     "build": "react-scripts build",
