@@ -29,6 +29,7 @@ class App extends React.Component {
         "Add one of your own!"
       ],
       index: 0,
+      endList: false,
       creatorStyle: {
         display: "none"
       },
@@ -47,6 +48,7 @@ class App extends React.Component {
     this.toggleCardCreator = this.toggleCardCreator.bind(this);
     this.onChangeCreator = this.onChangeCreator.bind(this);
     this.createCard = this.createCard.bind(this);
+    this.showCard = this.showCard.bind(this);
   }
 
   componentDidMount() {
@@ -109,6 +111,11 @@ class App extends React.Component {
       // callback function
       function() {
         setTimeout(() => {this.retrieveCards()}, 500);
+        if (this.state.index === this.state.presetQueue.length - 1) {
+          this.setState({
+            endList: true
+          })
+        }
       })
     } else {
       this.retrieveCards();
@@ -116,10 +123,15 @@ class App extends React.Component {
   }
 
   handleSwipe(param) {
-    if (param === "accept" && this.state.index < this.state.presetQueue.length - 1) {
-      this.addToCollection();
-      this.increment();
-    } else {
+    if (param === "accept") {
+      if (this.state.endList === false && this.state.index < this.state.presetQueue.length - 1) {
+        this.addToCollection();
+        this.increment();
+      } else {
+        this.increment();
+      }
+    }
+    if (param === "reject") {
       this.increment();
     }
   }
@@ -148,7 +160,7 @@ class App extends React.Component {
 
   populateCollection() {
     return this.state.collection.map((currentCard, i) => {
-      return <CardHeader card={currentCard} key={i} onClick={this.deleteFromCollection}/>;
+      return <CardHeader card={currentCard} key={i} onClick={this.deleteFromCollection} showCard={this.showCard} />;
     })
   }
 
@@ -207,6 +219,25 @@ class App extends React.Component {
     
     setTimeout(() => {this.retrieveCards()}, 500);
     this.toggleCardCreator();
+  }
+
+  showCard(id) {
+    axios.get('/active_user/find_one', { params: { id: id } })
+      .then(res => {
+          this.setState({
+            liveCard: res.data
+          },
+          function() {
+            console.log(res.data);
+          });
+      })
+      .catch(function(error) {
+          console.log(error);
+      })
+
+    this.setState({
+      index: this.state.index - 1
+    });
   }
 
   render() {

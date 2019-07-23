@@ -39,6 +39,17 @@ app.get('/active_user', (req, res) => {
   });
 });
 
+app.get('/active_user/find_one', (req, res) => {
+  let id = req.query.id;
+  UserCard.findOne({_id: id}, (err, cards) => {
+      if (err) {
+          res.send(err);
+      } else {
+          res.json(cards);
+      }
+  });
+});
+
 app.post('/active_user', (req, res) => {
   let card = new UserCard(req.body);
   card.save()
