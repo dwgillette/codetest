@@ -4,6 +4,7 @@ import './App.scss';
 import Card from './components/card';
 import CardHeader from './components/cardHeader';
 import CollectionHeader from './components/collectionHeader';
+import CardCreator from './components/cardCreator';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +28,10 @@ class App extends React.Component {
         "Extraterrestrial Life",
         "Add one of your own!"
       ],
-      index: 0
+      index: 0,
+      creatorStyle: {
+        display: "none"
+      }
     }
     this.connectToServer = this.connectToServer.bind(this);
     this.retrieveCards = this.retrieveCards.bind(this);
@@ -36,6 +40,7 @@ class App extends React.Component {
     this.increment = this.increment.bind(this);
     this.createCard = this.createCard.bind(this);
     this.deleteFromCollection = this.deleteFromCollection.bind(this);
+    this.toggleCardCreator = this.toggleCardCreator.bind(this);
   }
 
   componentDidMount() {
@@ -142,9 +147,24 @@ class App extends React.Component {
     })
   }
 
+  toggleCardCreator(param) {
+    const activeStyle = { display: "flex" };
+    const passiveStyle = { display: "none" };
+    if (param === "show") {
+      this.setState({
+        creatorStyle: activeStyle
+      })
+    } else {
+      this.setState({
+        creatorStyle: passiveStyle
+      })
+    }
+  }
+
   render() {
     return (
       <div className="pageWrapper">
+        <CardCreator style={this.state.creatorStyle} onClick={this.toggleCardCreator}/>
         <header className="header">
           <h1>{ this.state.expressStatus }</h1>
         </header>
@@ -153,7 +173,7 @@ class App extends React.Component {
             <Card card={this.state.liveCard} onClick={this.handleSwipe}/>
           </div>
           <div className="collectionPanel">
-            <CollectionHeader />
+            <CollectionHeader onClick={this.toggleCardCreator} />
             <div className="collectionContainer">
             { this.populateCollection() }
             </div>
