@@ -42,7 +42,7 @@ const CardCreator = (props) => (
           <div className="formGroup">
             <label>Picture: </label>
             <input 
-              type="text" 
+              type="url" 
               className="formControl"
               value={props.picture}
               placeholder="Paste an image link for pizzazz!" 
