@@ -35,17 +35,18 @@ class App extends React.Component {
       createName: "",
       createDesc: "",
       createFact: "",
-      createPicture: "https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
+      createPicture: ""
     }
     this.connectToServer = this.connectToServer.bind(this);
     this.retrieveCards = this.retrieveCards.bind(this);
     this.populateCollection = this.populateCollection.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
     this.increment = this.increment.bind(this);
-    this.createCard = this.createCard.bind(this);
+    this.addToCollection = this.addToCollection.bind(this);
     this.deleteFromCollection = this.deleteFromCollection.bind(this);
     this.toggleCardCreator = this.toggleCardCreator.bind(this);
     this.onChangeCreator = this.onChangeCreator.bind(this);
+    this.createCard = this.createCard.bind(this);
   }
 
   componentDidMount() {
@@ -116,15 +117,14 @@ class App extends React.Component {
 
   handleSwipe(param) {
     if (param === "accept" && this.state.index < this.state.presetQueue.length - 1) {
-      this.createCard();
+      this.addToCollection();
       this.increment();
     } else {
       this.increment();
     }
   }
 
-  createCard() {
-    // testing card creation
+  addToCollection() {
     const newCard = {
       name: this.state.liveCard.name,
       desc: this.state.liveCard.desc,
@@ -157,7 +157,11 @@ class App extends React.Component {
     const passiveStyle = { display: "none" };
     if (param === "show") {
       this.setState({
-        creatorStyle: activeStyle
+        creatorStyle: activeStyle,
+        createName: "",
+        createDesc: "",
+        createFact: "",
+        createPicture: ""
       })
     } else {
       this.setState({
@@ -187,13 +191,36 @@ class App extends React.Component {
     }
   }
 
+  createCard() {
+    const newCard = {
+      name: this.state.createName,
+      desc: this.state.createDesc,
+      fact: this.state.createFact,
+      picture: this.state.createPicture
+    }
+
+    axios.post('/active_user', newCard)
+      .then(res =>  console.log(res.data))
+      .catch(err => {
+        console.error(err);
+      });
+    
+    setTimeout(() => {this.retrieveCards()}, 500);
+    this.toggleCardCreator();
+  }
+
   render() {
     return (
       <div className="pageWrapper">
         <CardCreator 
-          style={this.state.creatorStyle} 
+          style={this.state.creatorStyle}
+          name={this.state.createName}
+          desc={this.state.createDesc}
+          fact={this.state.createFact}
+          picture={this.state.createPicture}
           onClick={this.toggleCardCreator}
-          onChange={this.onChangeCreator} />
+          onChange={this.onChangeCreator}
+          onSubmit={this.createCard} />
         <header className="header">
           <h1>{ this.state.expressStatus }</h1>
         </header>
