@@ -50,6 +50,7 @@ class App extends React.Component {
     this.onChangeCreator = this.onChangeCreator.bind(this);
     this.createCard = this.createCard.bind(this);
     this.showCard = this.showCard.bind(this);
+    this.returnCardToCollection = this.returnCardToCollection.bind(this);
   }
 
   componentDidMount() {
@@ -125,17 +126,29 @@ class App extends React.Component {
 
   handleSwipe(param) {
     if (param === "accept") {
-      if (this.state.endList === false && this.state.index < this.state.presetQueue.length - 1) {
-        this.addToCollection();
-        this.increment();
+      if (this.state.liveCardIsFromCollection === false) {
+        if (this.state.endList === false) {
+          this.addToCollection();
+          this.increment();
+        } else {
+          this.increment();
+        }
       } else {
-        this.increment();
+        this.returnCardToCollection();
+        this.retrieveCards();
       }
     }
+
     if (param === "reject") {
-      this.increment();
+      if (this.state.liveCardIsFromCollection === false) {
+        this.increment();
+      } else {
+        this.returnCardToCollection();
+        this.retrieveCards();
+      }
     }
   }
+    
 
   addToCollection() {
     const newCard = {
@@ -232,7 +245,8 @@ class App extends React.Component {
     axios.get('/active_user/find_one', { params: { name: name } })
       .then(res => {
           this.setState({
-            liveCard: res.data
+            liveCard: res.data,
+            liveCardIsFromCollection: true
           },
           function() {
             console.log(res.data);
@@ -242,7 +256,7 @@ class App extends React.Component {
           console.log(error);
       });
     
-    if (this.state.liveCardIsFromCollection === false) {
+   /* if (this.state.liveCardIsFromCollection === false) {
       this.setState({
         index: (this.state.endList === false) ?
         this.state.index - 1 :
@@ -252,7 +266,13 @@ class App extends React.Component {
           liveCardIsFromCollection: true
         })
       });
-    }
+    }*/
+  }
+
+  returnCardToCollection() {
+    this.setState({
+      liveCardIsFromCollection: false
+    })
   }
 
   render() {
