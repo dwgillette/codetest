@@ -1,3 +1,8 @@
+@keyframes button {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
 $black: #282c34;
 $red: #c03d3d;
 $green: #1bb90f;
@@ -109,24 +114,41 @@ $pink: #fd6262;
   height: 80px;
   font-size: 60px;
   border-radius: 100px;
-  transition: all 0.3s ease-in;
+  opacity: 1;
   &:hover {
+    transition: color 0.3s ease-in;
     color: white;
     cursor: pointer;
   }
 }
 
 #reject {
-  transition: all 0.2s ease-out;
+  transition: opacity .9s cubic-bezier(1,-1,1,.85), background-color 0.2s ease-out;
   &:hover {
     background-color: $red;
+  }
+  &:active {
+    opacity: 0;
+    transition: opacity 0s, background-color 0.2s ease-out;
+  }
+  &:active:after {
+    opacity: 1;
+    transition: opacity .9s cubic-bezier(1,-1,1,.85), background-color 0.2s ease-out;
   }
 }
 
 #check {
-  transition: all 0.2s ease-out;
+  transition: opacity .9s cubic-bezier(1,-1,1,.85), background-color 0.2s ease-out;
   &:hover {
     background-color: $green;
+  }
+  &:active {
+    opacity: 0;
+    transition: opacity 0s, background-color 0.2s ease-out;
+  }
+  &:active:after {
+    opacity: 1;
+    transition: opacity .9s cubic-bezier(1,-1,1,.85), background-color 0.2s ease-out;
   }
 }
 
