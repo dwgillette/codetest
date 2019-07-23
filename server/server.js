@@ -1,13 +1,15 @@
 const express = require('express');
-const app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+const app = express();
+
+app.use(bodyParser.json());
 
 const PresetCard = require('./presetCards.model');
 const UserCard = require('./userCards.model');
-
-app.use(bodyParser.json());
 
 mongoose.connect('mongodb+srv://user:opendrives@cluster0-rrsmt.mongodb.net/fact_stack', {useNewUrlParser: true});
 const connection = mongoose.connection;
@@ -86,20 +88,13 @@ app.get('/express_backend', (req, res) => {
   res.send({ express:"The express backend is connected to React. Woo!" });
 });
 
-//Static file declaration
-app.use(express.static(path.join(__dirname, 'build')));
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '/../client/build')));
 
-//production mode
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'build')));
-  //
-  app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'build/index.html'));
-  })}
-
-//build mode
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/public/index.html'));
+  res.sendFile(path.join(__dirname+'/../client/build/index.html'));
 });
 
 //start server
