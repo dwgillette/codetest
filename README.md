@@ -3,6 +3,8 @@ Crisis Collector
 
 Have fun while learning about potential existential crises that face humanity!
 
+![Crisis Collector Screenshot](https://github.com/dwgillette/codetest/blob/master/docs/CrisisCollector.png)
+
 Features
 ------------
 
