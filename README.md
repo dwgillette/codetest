@@ -14,7 +14,7 @@ Features
 
 * **Custom Card Creation** - One of the many wonderful things about existential possibilities is they are virtually limitless. Have an existential concern you just don't see in our stack of cards? Create your own! With our card creator, you can add as many custom cards as you like. The only boundaries are those of your imagination!
 
-* **Trimming the Fat** - Have a card in your collection that just doesn't resonate anymore? Maybe humanity has safeguarded itself from a potential threat and you want to shift your focus. Whatever the reason, if you'd like to remove a card from your collection, you can! Just remember, while there's impermanence in all things, some actions have far reaching consequences. Like this one for instance. Once the card is gone, it's gone!
+* **Trim the Fat** - Have a card in your collection that just doesn't resonate anymore? Maybe humanity has safeguarded itself from a potential threat and you want to shift your focus. Whatever the reason, if you'd like to remove a card from your collection, you can! Just remember, while there's impermanence in all things, some actions have far reaching consequences. Like this one for instance. Once the card is gone, it's gone!
 
 Getting Started
 ------------------
